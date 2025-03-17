@@ -5,5 +5,5 @@ import com.sistema.blog.api.entities.Publicacion;
 
 public interface IPublicacionService extends IGenericCrud<Publicacion, Integer>{
 
-	public PublicacionDto createPublicacion (PublicacionDto publicacionDto);
+	public PublicacionDto newPublicacion (PublicacionDto publicacionDto);
 }

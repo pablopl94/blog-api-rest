@@ -2,6 +2,7 @@ package com.sistema.blog.api.services;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,9 @@ public class PublicacionServiceImpl implements IPublicacionService {
 
 	@Autowired
 	private IPublicacionRepository publicacionRepository;
+	
+	@Autowired
+	private ModelMapper mapper;
 	
 	@Override
 	public Publicacion findById(Integer pk) {
@@ -44,10 +48,16 @@ public class PublicacionServiceImpl implements IPublicacionService {
 		
 	}
 
+	//Metodo que recibe un Dto, lo pasamos a entidad Publicacion, lo guardamos y devolvemos el dto como respuesta otra vez
 	@Override
-	public PublicacionDto createPublicacion(PublicacionDto publicacionDto) {
-		// TODO Auto-generated method stub
-		return null;
+	public PublicacionDto newPublicacion(PublicacionDto publicacionDto) {
+		
+		Publicacion publicacion = mapper.map(publicacionDto, Publicacion.class);
+		publicacionRepository.save(publicacion);
+		
+		PublicacionDto newPublicacionDto = mapper.map(publicacion, PublicacionDto.class);
+		return newPublicacionDto;
 	}
+
 
 }
